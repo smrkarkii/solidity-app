@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 
 contract Auction {
     // current state of the auction
+    uint256 assetId;
+    string assetName;
     address payable public beneficiary;
     uint256 public auctionEndTime;
 
@@ -22,8 +24,15 @@ contract Auction {
     event highestBidIncreased(address bidder, uint256 amount);
     event auctionEnded(address winner, uint256 amount);
 
-    constructor(uint256 _biddingTime, address payable _beneficiary) {
+    constructor(
+        uint256 _biddingTime,
+        address payable _beneficiary,
+        uint256 _id,
+        string memory _name
+    ) {
         auctionState = Auc_State.Running;
+        assetId = _id;
+        assetName = _name;
         beneficiary = _beneficiary;
         auctionEndTime = block.timestamp + _biddingTime;
     }
